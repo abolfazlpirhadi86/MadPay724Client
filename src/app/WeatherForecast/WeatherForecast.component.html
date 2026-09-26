@@ -1,3 +1,27 @@
-<p>
-  WeatherForecast works!
-</p>
+<h2>Weather Forecast</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temperature C</th>
+      <th>Temperature F</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (item of values; track $index) {
+      <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.temperatureC }}</td>
+        <td>{{ item.temperatureF }}</td>
+        <td>{{ item.summary }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<hr>
+
+<h3>Raw Response:</h3>
