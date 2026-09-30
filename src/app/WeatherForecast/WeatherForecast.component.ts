@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-WeatherForecast',
@@ -8,18 +7,32 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./WeatherForecast.component.css'],
 })
 export class WeatherForecastComponent implements OnInit {
-  values: any;
+
+  values: any[] = [];
+
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    debugger;
-    this.http.get('https://localhost:44353/weatherforecast').subscribe(
-      (resp) => {
-        this.values = resp;
-      },
-      (error) => {
-        alert(error);
-      },
-    );
+  ngOnInit(): void {
+
+    this.http
+      .get<any[]>('https://localhost:44353/weatherforecast')
+      .subscribe({
+        next: (resp) => {
+          console.log('API RESPONSE:', resp);
+          this.values = resp;
+        },
+
+        error: (error) => {
+          console.log('STATUS:', error.status);
+          console.log('MESSAGE:', error.message);
+          console.log('ERROR:', error.error);
+          console.log('FULL ERROR:', error);
+
+          alert(
+            'Status: ' + error.status +
+            '\nMessage: ' + error.message
+          );
+        }
+      });
   }
 }
